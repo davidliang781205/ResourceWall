@@ -1,6 +1,6 @@
-$(() => {
-  $('.card').on('click', () => {
-    $(this).next('.modal').addClass('is-active');
-  })
-
+$(document).ready(() => {
+    $('.card').on('click', (e) => {
+        e.stopPropagation();
+        $('#myModal').modal('toggle');
+    })
 })
