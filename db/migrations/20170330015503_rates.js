@@ -1,0 +1,19 @@
+
+exports.up = function(knex, Promise) {
+  return knex.schema.createTable('rates', (table) => {
+    table.increments();
+    table.integer('user_id').unsigned();
+    table.foreign('user_id')
+      .references('users.id')
+      .onDelete('CASCADE');
+    table.integer('url_id').unsigned();
+    table.foreign('url_id')
+      .references('urls.id')
+      .onDelete('CASCADE');
+    table.smallint('raiting');
+  });
+};
+
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTable("rates");
+};
