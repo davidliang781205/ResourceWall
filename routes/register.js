@@ -22,7 +22,7 @@ function insertNewUser(email, password) {
   knex.insert({email: email, password: password})
   .into("users")
   .then((results) => {
-    console.log("in function");
+  console.log("in function");
   res.json(results);
   });
 }
