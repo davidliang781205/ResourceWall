@@ -11,7 +11,7 @@ module.exports = (knex) => {
 
     insertNewUser(req.body.email, hashed_password);
     req.session.user_id = user.id;
-    console.log("after function call");
+    console.log("in post register function call ");
     res.redirect("/");
   });
 
@@ -21,8 +21,11 @@ module.exports = (knex) => {
 function insertNewUser(email, password) {
   knex.insert({email: email, password: password})
   .into("users")
-  .then((results) => {
-    console.log("in function");
-  res.json(results);
+  .asCallback(function(err, rows) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log(rows);
+    console.log("in insertUser knex function");
   });
 }
