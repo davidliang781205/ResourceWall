@@ -4,10 +4,6 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (knex) => {
-  let user = {
-    email: req.body.email,
-    password: req.body.password
-  }
   router.get("/", (req, res) => {
     knex
       .select("*")
