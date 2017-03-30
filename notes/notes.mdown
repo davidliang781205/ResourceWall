@@ -1,0 +1,34 @@
+---creating an app---
+
+
+1. make the erd (figure out what info you need to put in your db) YOU CAN USE THIS DATA to compare against user data for figuring things out
+
+2. how many routes (how many diff pages can the user to go)
+
+3. how all the basic features are going to work to the user and where they will go on the site
+
+                                +
+
+ create each page frameowrk (main url page, user profile, user action popup)
+
+4.
+
+
+Storyboarding is the art of telling a story in a chronological
+format. Deciding what the scenes are, how they progress
+from one point in time to another, is important to be able to
+tell the story.
+This applies to the web as well.
+
+
+----DB SCHEMA---
+
+ UNIQUNESS = means no same row can repeat itself. ie) user can't like the same thing twice
+
+
+● Front-end
+● Back-end
+● APIs
+● JS
+● Database
+● Feature
