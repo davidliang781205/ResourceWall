@@ -1,0 +1,18 @@
+html {
+  background-color: deepskyblue;
+}
+
+.nav {
+  height: 8em;
+  margin-bottom: 8em;
+  background-color: deepskyblue;
+  color: #EEE;
+}
+
+.nav .nav-center {
+  color: #EEE;
+}
+
+.container {
+  margin: auto, 2em;
+}
