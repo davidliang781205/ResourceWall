@@ -24,41 +24,55 @@ module.exports = (knex) => {
       });
   }
 
-  function doesEmailExist(email) {
-
+  function emailExistFunc(email) {
+    return knex
+      .select('email')
+      .from ('users')
+      .where({email: email})
+      .limit(1)
+      .then((rows) => {
+        if (rows.length) {
+          return Promise.resolve(email);
+        } else {
+          return Promise.resolve();
+        }
+      })
   }
 
   router.post("/", (req, res) => {
 
     let validateEmail = validator.isEmail(req.body.email);
-    if (req.body.email === "" || req.body.password === "") {
-      // res.flash("info", "Please don't leave email and password fields empty");
-      console.log("insde empty string and pass condition");
-      res.redirect("/");
-      return;
-    }
-
-    // doesEmailExist(req.body.email);
-    // if (doesEmailExist) {
-    //   // res.flash("info", "Email already exists, please use another");
+//this error is already taken care of w the natural behaviour of the registration button?
+    // if (req.body.email === "" || req.body.password === "") {
+    //   res.flash("error", "Please don't leave email and password fields empty");
+    //   console.log("insde empty string and pass condition");
     //   res.redirect("/");
     //   return;
     // }
-    if (validateEmail) {
-      insertNewUser(req.body.email, req.body.password, (err, userId) => {
-        if (err) {
-          console.error("ERROR:", err);
-          return res.status(400).end();
-        }
-        req.session.user_id = userId;
-        console.log("OK, result is:", userId);
+
+    let emailExist = emailExistFunc(req.body.email);
+    emailExist.then((email)=> {
+      if (email) {
+        req.flash("error", "Email already exists, please use another");
         res.redirect("/");
-      });
-    } else {
-      req.flash("error", "Please use a valid email address (example@example.ca)");
-      res.redirect("/");
-      console.log("email wasnt validated so went through this code")
-    }
+        return;
+      }
+      if (validateEmail) {
+        insertNewUser(req.body.email, req.body.password, (err, userId) => {
+          if (err) {
+            console.error("ERROR:", err);
+            return res.status(400).end();
+          }
+          req.session.user_id = userId;
+          console.log("OK, result is:", userId);
+          res.redirect("/");
+        });
+      } else {
+        req.flash("error", "Please use a valid email address (example@example.ca)");
+        res.redirect("/");
+        console.log("email wasnt validated so went through this code")
+      }
+    })
   });
   return router;
 }
