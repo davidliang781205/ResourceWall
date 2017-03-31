@@ -9,7 +9,7 @@ $(() => {
     e.preventDefault();
     $.ajax({
       method: 'POST',
-      url: '/api/user/login',
+      url: '/api/users/login',
       data: data
     }).done(() => {
       window.location.reload();

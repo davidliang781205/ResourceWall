@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 const cookieSession = require('cookie-session');
 const app = express();
+const bcrypt  = require('bcrypt');
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
@@ -16,7 +17,7 @@ const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 
 // Seperated Routes for each Resource
-// const usersRoutes = require("./routes/users");
+const usersRoutes = require("./routes/users");
 const usersRoutesLogin = require("./routes/user_login");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -31,6 +32,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
   name: 'session',
+  keys: [process.env.SESSION_SECRET || 'key1'],
   // secret: process.env.SESSION_SECRET,
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
@@ -44,7 +46,7 @@ app.use(cookieSession({
 app.use(express.static("public"));
 
 // Mount all resource routes
-// app.use("/api/users", usersRoutes(knex));
+app.use("/api/users", usersRoutes(knex));
 app.use("/api/users/login", usersRoutesLogin(knex));
 
 // Home page
