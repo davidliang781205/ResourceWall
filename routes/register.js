@@ -1,26 +1,26 @@
 "use strict";
 
 const express = require('express');
-const router  = express.Router();
-const bcrypt= require("bcrypt");
+const router = express.Router();
+const bcrypt = require("bcrypt");
 
 module.exports = (knex) => {
 
   function insertNewUser(email, password, callback) {
     const hashed_password = bcrypt.hashSync(password, 10);
 
-    knex.insert({email: email, password: hashed_password})
-    .into("users")
-    .returning('id')
-    .asCallback(function(err, ids) {
-      if (err) {
-        console.error(err);
-        callback(err);
-      }
-      console.log(ids);
-      console.log("in insertUser knex function");
-      callback(null, ids);
-    });
+    knex.insert({ email: email, password: hashed_password })
+      .into("users")
+      .returning('id')
+      .asCallback(function(err, ids) {
+        if (err) {
+          console.error(err);
+          callback(err);
+        }
+        console.log(ids);
+        console.log("in insertUser knex function");
+        callback(null, ids);
+      });
   }
 
   function doesEmailExist(email) {
@@ -53,6 +53,5 @@ module.exports = (knex) => {
       });
     }
   });
-
   return router;
 }

@@ -1,12 +1,13 @@
 "use strict";
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
-module.exports = (knex) => {
+module.exports = () => {
   router.post("/", (req, res) => {
-    delete req.session.user_id;
+    req.session = undefined;
+    res.redirect('/');
+    return;
   });
-
   return router;
 }
