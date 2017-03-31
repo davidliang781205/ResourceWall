@@ -24,7 +24,6 @@ module.exports = (knex) => {
   }
 
   router.post("/", (req, res) => {
-
     insertNewUser(req.body.email, req.body.password, (err, userId) => {
       console.log("in POST /register callback:", userId);
       if (err) {

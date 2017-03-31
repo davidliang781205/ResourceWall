@@ -18,6 +18,7 @@ const knexLogger = require('knex-logger');
 // Seperated Routes for each Resource
 // const usersRoutes = require("./routes/users");
 const registerRoutes = require("./routes/register");
+const logoutRoutes = require("./routes/logout");
 
 app.use(cookieSesh({
   name: "session",
@@ -44,6 +45,7 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/register", registerRoutes(knex));
+app.use("/logout", logoutRoutes);
 
 // Home page
 app.get("/", (req, res) => {
