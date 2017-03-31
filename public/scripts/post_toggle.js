@@ -1,14 +1,18 @@
 $(() => {
   $('.card').click(function(e) {
-    var $title = $(this).find('.caption h3').text();
-    var $description = $(this).find('.caption').children('.description').text();
+    var $title = $(this).find('.caption .card-title').text();
+    var $subtitle = $(this).find('.caption .card-subtitle').text();
+    var $description = $(this).find('.caption').children('.card-text').text();
     var $media = $(this).find('img').attr('src');
+    var $title = $('#cardModal .modal-title');
+    var $body = $('#cardModal .modal-body');
     $('#cardModal .modal-body').empty();
-    $('#cardModal .modal-title').text($title);
-    $('#cardModal .modal-body').append($('<img class="post-image">').attr('src', $media));
-    $('#cardModal .modal-body').append($('<div class="post-description">').text($description));
-    $('#cardModal .modal-body').append($('<hr>'));
-    $('#cardModal .modal-body').append($('<div class="user-actions">')
+    $title.text($title);
+    $title.append($subtitle);
+    $body.append($('<img class="post-image">').attr('src', $media));
+    $body.append($('<div class="post-description">').text($description));
+    $body.append($('<hr>'));
+    $body.append($('<div class="user-actions">')
       .append(makeRating())
       .append(makeThumbUp()));
 
