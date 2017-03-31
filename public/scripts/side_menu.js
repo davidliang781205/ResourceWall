@@ -13,13 +13,13 @@ $(() => {
     }).done(() => {});
   })
 
-  $(".register-button").on('click', (e) => {
-    e.preventDefault();
-    $.ajax({
-      method: 'POST',
-      url: '/register',
-      data: textInput.serialize()
-    }).done(() => {});
-  })
+//   $(".register-button").on('click', (e) => {
+//     e.preventDefault();
+//     $.ajax({
+//       method: 'POST',
+//       url: '/register',
+//       data: $('#register-form').serialize()
+//     }).done(() => {});
+//   })
 
 })
