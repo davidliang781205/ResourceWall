@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
       .references('urls.id')
       .onDelete('CASCADE');
     table.text('content');
+    table.timestamp('created_at');
   });
 };
 

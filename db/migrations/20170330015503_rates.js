@@ -10,7 +10,8 @@ exports.up = function(knex, Promise) {
     table.foreign('url_id')
       .references('urls.id')
       .onDelete('CASCADE');
-    table.smallint('raiting');
+    table.smallint('rating');
+    table.timestamp('created_at');
   });
 };
 
