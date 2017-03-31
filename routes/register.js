@@ -23,20 +23,36 @@ module.exports = (knex) => {
     });
   }
 
+  function doesEmailExist(email) {
+
+  }
+
   router.post("/", (req, res) => {
 
-    insertNewUser(req.body.email, req.body.password, (err, userId) => {
-      console.log("in POST /register callback:", userId);
-      if (err) {
-        console.error("ERROR:", err);
-        return res.status(400).end();
-      }
-      console.log("in post register function call ");
-      req.session.user_id = userId;
-      console.log("OK, result is:", userId);
+    if (req.body.email === "" || req.body.password === "") {
+      res.flash("info", "Please don't leave email and password fields empty");
       res.redirect("/");
-    });
-  });
-  return router;
+      return;
+    }
 
+    doesEmailExist(req.body.email);
+    if (doesEmailExist) {
+      res.flash("info", "Email already exists, please use another");
+      res.redirect("/");
+    } else {
+      insertNewUser(req.body.email, req.body.password, (err, userId) => {
+        console.log("in POST /register callback:", userId);
+        if (err) {
+          console.error("ERROR:", err);
+          return res.status(400).end();
+        }
+        console.log("in post register function call ");
+        req.session.user_id = userId;
+        console.log("OK, result is:", userId);
+        res.redirect("/");
+      });
+    }
+  });
+
+  return router;
 }
