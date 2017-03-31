@@ -24,26 +24,31 @@ module.exports = (knex) => {
       });
   }
 
-  function doesEmailExist(email) {
-
+  function emailExistFunc(email) {
+    knex
+      .select('email')
+      .from ('users')
+      .where({email: email})
+      .limit(1);
   }
 
   router.post("/", (req, res) => {
 
     let validateEmail = validator.isEmail(req.body.email);
+//this error is already taken care of w the natural behaviour of the registration button?
     if (req.body.email === "" || req.body.password === "") {
-      // res.flash("info", "Please don't leave email and password fields empty");
+      res.flash("error", "Please don't leave email and password fields empty");
       console.log("insde empty string and pass condition");
       res.redirect("/");
       return;
     }
 
-    // doesEmailExist(req.body.email);
-    // if (doesEmailExist) {
-    //   // res.flash("info", "Email already exists, please use another");
-    //   res.redirect("/");
-    //   return;
-    // }
+    emailExistFunc(req.body.email);
+    if (emailExistFunc) {
+      req.flash("error", "Email already exists, please use another");
+      res.redirect("/");
+      return;
+    }
     if (validateEmail) {
       insertNewUser(req.body.email, req.body.password, (err, userId) => {
         if (err) {
