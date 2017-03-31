@@ -11,7 +11,10 @@ module.exports = (knex) => {
       .select("*")
       .from("users")
       .where("users.email", "=", email)
-      .then(req.session.user_id = comparePass(password))
+      .then(() => {
+        req.session.user_id = comparePass(password);
+        console.log(req.session.user_id, "my cookie is ----");
+      });
       .catch(err => console.err);
 
       res.redirect("/");
