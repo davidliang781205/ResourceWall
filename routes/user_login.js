@@ -8,7 +8,6 @@ module.exports = (knex) => {
   router.post("/", (req, res) => {
     knex("users")
       .select("id", "password")
-      .from("users")
       .where({email: req.body.email})
       .limit(1)
       .then((rows) => {
