@@ -3,16 +3,16 @@ $(() => {
     var $title = $(this).find('.caption h3').text();
     var $description = $(this).find('.caption').children('.description').text();
     var $media = $(this).find('img').attr('src');
-    $('#myModal .modal-body').empty();
-    $('#myModal .modal-title').text($title);
-    $('#myModal .modal-body').append($('<img class="post-image">').attr('src', $media));
-    $('#myModal .modal-body').append($('<div class="post-description">').text($description));
-    $('#myModal .modal-body').append($('<hr>'));
-    $('#myModal .modal-body').append($('<div class="user-actions">')
+    $('#cardModal .modal-body').empty();
+    $('#cardModal .modal-title').text($title);
+    $('#cardModal .modal-body').append($('<img class="post-image">').attr('src', $media));
+    $('#cardModal .modal-body').append($('<div class="post-description">').text($description));
+    $('#cardModal .modal-body').append($('<hr>'));
+    $('#cardModal .modal-body').append($('<div class="user-actions">')
       .append(makeRating())
       .append(makeThumbUp()));
 
-    $('#myModal').modal('toggle');
+    $('#cardModal').modal('toggle');
   });
 })
 

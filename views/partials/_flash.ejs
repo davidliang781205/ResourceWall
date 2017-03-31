@@ -1,12 +1,12 @@
 <div class="alert alert-warning">
   <% if (errors.length) { %>
     <% errors.forEach((error) => { %>
-      <p>Error: <%= error %></p>
+      <p><strong>Error:</strong> <%= error %></p>
     <% }) %>
   <% } %>
   <% if (info.length) { %>
     <% info.forEach((message) => { %>
-      <p>Info: <%= message %></p>
+      <p><strong>Info:</strong> <%= message %></p>
     <% }) %>
   <% } %>
 </div>

@@ -29,15 +29,23 @@
 
     <div id="wrapper">
         <% include ./partials/_nav %>
-        <% include ./partials/_flash %>
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
           <% include ./partials/_side_menu %>
         </div>
         <div id="page-content-wrapper">
-          <% include ./partials/_card_container %>
+
+          <% 
+            var postCount = posts.length;
+            while (postCount > 0){ 
+          %>
+              <% include ./partials/_card_row %>
+          <%
+            postCount = postCount -4;     
+             } %>          
         </div>
 
+        <% include ./partials/_card_modal %>
         <% include ./partials/_login %>
         <% include ./partials/_register %>
 
