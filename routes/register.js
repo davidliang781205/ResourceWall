@@ -25,11 +25,18 @@ module.exports = (knex) => {
   }
 
   function emailExistFunc(email) {
-    knex
+    return knex
       .select('email')
       .from ('users')
       .where({email: email})
-      .limit(1);
+      .limit(1)
+      .then((rows) => {
+        if (rows.length) {
+          return Promise.resolve(email);
+        } else {
+          return Promise.resolve();
+        }
+      })
   }
 
   router.post("/", (req, res) => {
@@ -43,27 +50,29 @@ module.exports = (knex) => {
       return;
     }
 
-    emailExistFunc(req.body.email);
-    if (emailExistFunc) {
-      req.flash("error", "Email already exists, please use another");
-      res.redirect("/");
-      return;
-    }
-    if (validateEmail) {
-      insertNewUser(req.body.email, req.body.password, (err, userId) => {
-        if (err) {
-          console.error("ERROR:", err);
-          return res.status(400).end();
-        }
-        req.session.user_id = userId;
-        console.log("OK, result is:", userId);
+    let emailExist = emailExistFunc(req.body.email);
+    emailExist.then((email)=> {
+      if (email) {
+        req.flash("error", "Email already exists, please use another");
         res.redirect("/");
-      });
-    } else {
-      req.flash("error", "Please use a valid email address (example@example.ca)");
-      res.redirect("/");
-      console.log("email wasnt validated so went through this code")
-    }
+        return;
+      }
+      if (validateEmail) {
+        insertNewUser(req.body.email, req.body.password, (err, userId) => {
+          if (err) {
+            console.error("ERROR:", err);
+            return res.status(400).end();
+          }
+          req.session.user_id = userId;
+          console.log("OK, result is:", userId);
+          res.redirect("/");
+        });
+      } else {
+        req.flash("error", "Please use a valid email address (example@example.ca)");
+        res.redirect("/");
+        console.log("email wasnt validated so went through this code")
+      }
+    })
   });
   return router;
 }
