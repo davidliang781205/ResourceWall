@@ -24,6 +24,7 @@ const usersRoutesLogin = require("./routes/user_login");
 const usersRoutesLogout = require("./routes/user_logout");
 // const usersRoutes = require("./routes/users");
 const registerRoutes = require("./routes/register");
+const createPostRoutes= require("./routes/insertUrl");
 app.use(cookieSesh({
   name: "session",
   keys: ["pancakes"]
@@ -54,6 +55,7 @@ app.use("/", homePage(knex));
 app.use("/login", usersRoutesLogin(knex));
 app.use("/logout", usersRoutesLogout());
 app.use("/register", registerRoutes(knex));
+// app.use("/create_post", createPostRoutes(knex));
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
