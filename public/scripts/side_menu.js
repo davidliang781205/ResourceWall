@@ -1,25 +1,20 @@
 $(() => {
-  $("#menu-toggle").on('click', (e) => {
+  $('#menu-toggle').on('click', (e) => {
     e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
+    $('#wrapper').toggleClass('toggled');
   });
 
-  $(".login-button").on('click', (e) => {
+  // TODO: I think we're replacing this with a regular form submission?
+  $('.login-button').on('click', (e) => {
+    var data = $('#login').serialize();
     e.preventDefault();
     $.ajax({
       method: 'POST',
-      url: '/login',
-      data: textInput.serialize()
-    }).done(() => {});
+      url: '/api/user/login',
+      data: data
+    }).done(() => {
+      window.location.reload();
+    })
   })
-
-//   $(".register-button").on('click', (e) => {
-//     e.preventDefault();
-//     $.ajax({
-//       method: 'POST',
-//       url: '/register',
-//       data: $('#register-form').serialize()
-//     }).done(() => {});
-//   })
 
 })
