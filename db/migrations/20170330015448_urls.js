@@ -12,6 +12,8 @@ exports.up = function(knex, Promise) {
     table.string('media_type', 60);
     table.text('original_url').notNull();
     table.text('thumbnail_url');
+    table.timestamp('created_at');
+
   });
 };
 

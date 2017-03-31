@@ -10,6 +10,7 @@ exports.up = function(knex, Promise) {
     table.foreign('url_id')
       .references('urls.id')
       .onDelete('CASCADE');
+    table.timestamp('created_at');
   });
 };
 

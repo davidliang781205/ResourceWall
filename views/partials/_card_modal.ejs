@@ -9,11 +9,14 @@
             <div class="modal-body">
                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
             </div>
+            <div class="modal-comments">
+                <% include ./_card_modal_comments %>
+            </div>
             <div class="modal-footer">
                 <div class="form-group">
                     <label for="comment">Comment:</label>
                     <textarea class="form-control comment" rows="5"></textarea>
-                    <button type="button" class="btn btn-default comment-submit" data-dismiss="modal">Comment</button>
+                    <button type="button" class="btn btn-default submit-button" data-dismiss="modal">Comment</button>
                 </div>
             </div>
         </div>

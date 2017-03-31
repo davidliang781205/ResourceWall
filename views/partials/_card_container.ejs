@@ -2,9 +2,19 @@
 	<div class="thumbnail">
 		<img src="http://placehold.it/350x350" alt="#">
 		<div class="caption">
-			<h3><%= posts[postIndex - 1].title %></h3>
+			<h3 class="card-title" ><%= posts[postIndex - 1].title %></h3>
+			<h6 class="card-subtitle" ><%= posts[postIndex - 1].genre %></h6>
 			<hr>		
-			<p class="description"><%= posts[postIndex - 1].description %></p>
+			<p class="card-text"><%= posts[postIndex - 1].description %></p>
+		</div>
+		<div class="post-meta">
+			<p class="urlid"></p>
+			<p class="username"></p>
+			<p class="likes"></p>
+			<p class="rates"></p>
+			<p class="comments"></p>
+			<p class="ori_url"></p>
+			<p class="created-at"></p>			
 		</div>
 	</div>
 </div>
