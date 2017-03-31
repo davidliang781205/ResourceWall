@@ -7,7 +7,7 @@ const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
-const cookieSession = require('cookie-session');
+const cookieSesh = require("cookie-session");
 const app = express();
 const bcrypt  = require('bcrypt');
 
@@ -17,8 +17,15 @@ const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 
 // Seperated Routes for each Resource
-const usersRoutes = require("./routes/users");
+// const usersRoutes = require("./routes/users");
 const usersRoutesLogin = require("./routes/user_login");
+// const usersRoutes = require("./routes/users");
+const registerRoutes = require("./routes/register");
+
+app.use(cookieSesh({
+  name: "session",
+  keys: ["pancakes"]
+  }));
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -30,12 +37,6 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieSession({
-  name: 'session',
-  keys: [process.env.SESSION_SECRET || 'key1'],
-  // secret: process.env.SESSION_SECRET,
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}));
 
 // app.use("/styles", sass({
 //   src: __dirname + "/styles",
@@ -48,6 +49,7 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 app.use("/api/users/login", usersRoutesLogin(knex));
+app.use("/register", registerRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
