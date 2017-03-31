@@ -10,6 +10,8 @@ const sass = require("node-sass-middleware");
 const cookieSesh = require("cookie-session");
 const app = express();
 const bcrypt = require('bcrypt');
+const flash = require('connect-flash');
+app.use(flash());
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
@@ -25,6 +27,7 @@ app.use(cookieSesh({
   name: "session",
   keys: ["pancakes"]
 }));
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -53,7 +56,9 @@ app.use("/register", registerRoutes(knex));
 // Home page
 app.get("/", (req, res) => {
   let templateVars = {
-    user: req.session.user_id
+    user: req.session.user_id,
+    errors: req.flash("error"),
+    info: req.flash("info")
   };
   res.render("index", templateVars);
 });
