@@ -1,13 +1,35 @@
 <ul class="sidebar-nav">
+
+
+<% if (!user) { %>
     <li class="sidebar-brand">
         <a href="#">
-            Title
+            Resource Wall
         </a>
     </li>
+    <hr />
     <li>
         <a data-toggle="modal" href="#login-modal">Login</a>
     </li>
     <li>
         <a data-toggle="modal" href="#register-modal">Register</a>
     </li>
+<% } else { %>
+    <li class="sidebar-brand">
+        <a href="#">
+            Resource Wall
+        </a>
+    </li>
+    <hr />
+    <li>
+        <a data-toggle="modal" href="#">Create a Post</a>
+    </li>
+    <li>
+        <hr />
+        <form action="/logout" method="POST">
+            <button class="btn btn-danger" type="submit">Log Out</button>
+        </form>
+    </li>
+
+<% } %>
 </ul>

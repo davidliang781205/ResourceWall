@@ -1,22 +1,15 @@
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for (user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });
-//   // $.ajax({
-//   //   method: "GET",
-//   //   url: "/api/users/login",
-//   //   data: { email: 'Bob@mar.ca', password: 'marBob'}
-//   //
-//   // })
-// });
+"use strict";
 
-// data: { email: 'Bob@mar.ca', password: 'marBob'}
-// data: {
-//   email: req.body.email,
-//   password: req.body.password
-// }
+const express = require('express');
+const router = express.Router();
+
+module.exports = (knex) => {
+  router.post("/", (req, res) => {
+    let templateVars = {
+      user: req.session.userID
+    };
+    res.render("index", templateVars);
+  });
+
+  return router;
+}
