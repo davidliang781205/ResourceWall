@@ -43,12 +43,12 @@ module.exports = (knex) => {
 
     let validateEmail = validator.isEmail(req.body.email);
 //this error is already taken care of w the natural behaviour of the registration button?
-    if (req.body.email === "" || req.body.password === "") {
-      res.flash("error", "Please don't leave email and password fields empty");
-      console.log("insde empty string and pass condition");
-      res.redirect("/");
-      return;
-    }
+    // if (req.body.email === "" || req.body.password === "") {
+    //   res.flash("error", "Please don't leave email and password fields empty");
+    //   console.log("insde empty string and pass condition");
+    //   res.redirect("/");
+    //   return;
+    // }
 
     let emailExist = emailExistFunc(req.body.email);
     emailExist.then((email)=> {
