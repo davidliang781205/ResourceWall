@@ -19,9 +19,9 @@ const knexLogger = require('knex-logger');
 // Seperated Routes for each Resource
 // const usersRoutes = require("./routes/users");
 const usersRoutesLogin = require("./routes/user_login");
+const usersRoutesLogout = require("./routes/user_logout");
 // const usersRoutes = require("./routes/users");
 const registerRoutes = require("./routes/register");
-
 app.use(cookieSesh({
   name: "session",
   keys: ["pancakes"]
@@ -47,8 +47,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
-app.use("/api/users/login", usersRoutesLogin(knex));
+// app.use("/api/users", usersRoutes(knex));
+app.use("/login", usersRoutesLogin(knex));
+app.use("/logout", usersRoutesLogout(knex));
 app.use("/register", registerRoutes(knex));
 
 // Home page
