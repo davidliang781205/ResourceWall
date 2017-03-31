@@ -6,7 +6,9 @@ const router = express.Router();
 module.exports = (knex) => {
   router.get("/", (req, res) => {
     let templateVars = {
-      user: req.session.user_id
+      user: req.session.user_id,
+      errors: req.flash("error"),
+      info: req.flash("info")
     };
     knex
       .select("*")
