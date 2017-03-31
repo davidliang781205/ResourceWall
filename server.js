@@ -10,6 +10,8 @@ const sass = require("node-sass-middleware");
 const cookieSesh = require("cookie-session");
 const app = express();
 const bcrypt = require('bcrypt');
+const flash = require('connect-flash');
+app.use(flash());
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
@@ -17,6 +19,7 @@ const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 
 // Seperated Routes for each Resource
+const homePage = require("./routes/home");
 const usersRoutesLogin = require("./routes/user_login");
 const usersRoutesLogout = require("./routes/user_logout");
 // const usersRoutes = require("./routes/users");
@@ -25,6 +28,7 @@ app.use(cookieSesh({
   name: "session",
   keys: ["pancakes"]
 }));
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -46,17 +50,10 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
+app.use("/", homePage(knex));
 app.use("/login", usersRoutesLogin(knex));
 app.use("/logout", usersRoutesLogout());
 app.use("/register", registerRoutes(knex));
-
-// Home page
-app.get("/", (req, res) => {
-  let templateVars = {
-    user: req.session.user_id
-  };
-  res.render("index", templateVars);
-});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

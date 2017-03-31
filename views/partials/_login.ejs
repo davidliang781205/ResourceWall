@@ -6,7 +6,11 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Login</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body">        
+                <% if (errors.length || info.length){ %>
+                    <% include ./_flash %>
+                <% } %>
+                <%= errors %>
                 <form role="form" id="login" action="/login" method="POST">
                     <div class="form-group">
                         <input class="form-control login-email" placeholder="E-mail" name="email" type="text" required>

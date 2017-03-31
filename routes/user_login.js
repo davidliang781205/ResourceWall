@@ -1,8 +1,8 @@
 "use strict";
 
 const express = require('express');
-const router  = express.Router();
-const bcrypt  = require('bcrypt');
+const router = express.Router();
+const bcrypt = require('bcrypt');
 
 module.exports = (knex) => {
   router.post("/", (req, res) => {
@@ -11,27 +11,31 @@ module.exports = (knex) => {
       .select("*")
       .from("users")
       .where("users.email", "=", email)
-      .then(() => {
-        req.session.user_id = comparePass(password);
-        console.log(req.session.user_id, "my cookie is ----");
-      });
+      .limit(1)
+      .then((rows) => {
+        comparePass(rows[0], password)
+      })
+      .then((userID) => {
+        console.log(userID);
+        req.session.user_id = userID;
+      })
       .catch(err => console.err);
+    console.log(req.session.user_id);
 
-      res.redirect("/");
+    res.redirect("/");
   });
 
   return router;
 }
-function comparePass(password){
-  return function(users) {
-    return new Promise((resolve, reject) => {
 
-      const isValidPassword = bcrypt.compareSync(password, users[0].password);
-      if (isValidPassword) {
-        resolve(users[0].id);
-      } else {
-        reject (false);
-      }
-    });
-  }
+function comparePass(user, password) {
+  return new Promise((resolve, reject) => {
+    const isValidPassword = bcrypt.compareSync(password, user.password);
+    if (isValidPassword) {
+      resolve(user.id);
+    } else {
+      reject(false);
+    }
+  });
+
 }
