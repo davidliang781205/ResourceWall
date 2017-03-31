@@ -6,36 +6,38 @@ const bcrypt = require('bcrypt');
 
 module.exports = (knex) => {
   router.post("/", (req, res) => {
-    const { email, password } = req.body;
-    knex
-      .select("*")
+    knex("users")
+      .select("id", "password")
       .from("users")
-      .where("users.email", "=", email)
+      .where({email: req.body.email})
       .limit(1)
       .then((rows) => {
-        comparePass(rows[0], password)
+        const user = rows[0];
+        if (!user){
+          return Promise.reject({
+            type:409,
+            message: "Bad Credentials"
+          });
+        }
+        const comparePasswords = bcrypt.compare(req.body.password, user.password);
+        return comparePasswords.then((passwordsMatch) => {
+          if (!passwordsMatch) {
+            return Promise.reject({
+              type:409,
+              message: "Bad Credentials"
+            });
+          }
+          return Promise.resolve(user);
+        });
       })
-      .then((userID) => {
-        console.log(userID);
-        req.session.user_id = userID;
+      .then((user) => {
+        req.session.user_id = user.id;
+        res.redirect("/");
       })
-      .catch(err => console.err);
-    console.log(req.session.user_id);
-
-    res.redirect("/");
+      .catch((err) => {
+        req.flash('errors', err.message);
+        res.redirect('/');
+      });
   });
-
   return router;
-}
-
-function comparePass(user, password) {
-  return new Promise((resolve, reject) => {
-    const isValidPassword = bcrypt.compareSync(password, user.password);
-    if (isValidPassword) {
-      resolve(user.id);
-    } else {
-      reject(false);
-    }
-  });
-
 }
