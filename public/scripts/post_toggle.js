@@ -10,7 +10,7 @@ function makeRating() {
     .append($('<input class="star star-2" id="star-2">').attr('type', 'radio').attr('name', 'star'))
     .append($('<label class="star star-2">').attr('for', 'star-2'))
     .append($('<input class="star star-1" id="star-1">').attr('type', 'radio').attr('name', 'star'))
-    .append($('<label class="star star-1">').attr('for', 'star-1'));
+    .append($('<label class="star star-1">').attr('for', 'star-1'))
 
   return $starContainer;
 }
@@ -40,6 +40,8 @@ $(() => {
     $body.append($('<div class="user-actions">')
       .append(makeRating())
       .append(makeThumbUp()));
+
+    $body.append($(this).find('div .post-meta'));
 
     $('#cardModal').modal('toggle');
   });

@@ -11,12 +11,43 @@ module.exports = (knex) => {
       info: req.flash("info")
     };
     knex
-      .select("*")
-      .from("urls")
-      .then((rows) => {
+      .select('urls.id',
+        'urls.title',
+        'urls.description',
+        'urls.genre',
+        'urls.media_type',
+        'urls.original_url',
+        'urls.thumbnail_url',
+        'users.email'
+      )
+      .count('likes.url_id')
+      .avg('rates.rating')
+      .from('urls')
+      .join('users', 'users.id', '=', 'urls.user_id')
+      .leftJoin('likes', 'likes.url_id', '=', 'urls.id')
+      .leftJoin('rates', 'rates.url_id', '=', 'urls.user_id')
+      .groupBy('urls.id')
+      .groupBy('urls.description')
+      .groupBy('urls.genre')
+      .groupBy('urls.media_type')
+      .groupBy('urls.original_url')
+      .groupBy('urls.thumbnail_url')
+      .groupBy('users.email')
+
+    .then((rows) => {
         templateVars.posts = rows;
+        return knex
+          .select('urls.id',
+            'comments.content',
+            'comments.user_id'
+          )
+          .from('urls')
+          .leftJoin('comments', 'comments.user_id', '=', 'urls.user_id')
+      })
+      .then((rows) => {
+        templateVars.postComments = rows;
         res.render("index", templateVars);
-        return;
+
       })
       .catch(err => console.err);
 
