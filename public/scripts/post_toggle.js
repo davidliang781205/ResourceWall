@@ -1,5 +1,5 @@
 function makeRating() {
-//this is appending the rating
+  //this is appending the rating
   var $starContainer = $('<div>').addClass('stars');
   $starContainer.append($('<form id="stars">'));
   $starContainer.append($('<input class="star star-5" id="star-5">').attr('type', 'radio').attr('name', 'star'))
@@ -17,7 +17,7 @@ function makeRating() {
 }
 
 function makeThumbUp() {
-//this is the like button
+  //this is the like button
   var $thumbContainer = $('<div>').addClass('like');
   $thumbContainer.append('<form id="like">')
     .append($('<i class="fa fa-thumbs-up" aria-hidden="true">'));
@@ -35,7 +35,8 @@ $(() => {
     var $body = $('#cardModal .modal-body');
     $('#cardModal .modal-body').empty();
     $title.text($title);
-    $title.append($subtitle);
+    $title.append($('<hr>'));
+    $title.append($('<h6>').text($subtitle));
     $body.append($('<img class="post-image">').attr('src', $media));
     $body.append($('<div class="post-description">').text($description));
     $body.append($('<hr>'));
@@ -43,10 +44,10 @@ $(() => {
       .append(makeRating())
       .append(makeThumbUp()));
 
-    $body.append($(this).find('div .post-meta'));
+    $body.append($(this).find('.post-meta'));
 
     $('#cardModal').modal('toggle');
-    $('#cardModal .fa-thumbs-up').on('click', function (event) {
+    $('#cardModal .fa-thumbs-up').on('click', function(event) {
       // let liked = false;
       // console.log($(.fa-thumbs-up).val(), 'val');
       let count = 1;
@@ -56,8 +57,8 @@ $(() => {
         method: 'post',
         url: '/likes',
         data: count
-      }).done(function () {
-        console.log( ' === like is clicked === ');
+      }).done(function() {
+        console.log(' === like is clicked === ');
         // $('.fa-thumbs-up').active()
       });
     });
