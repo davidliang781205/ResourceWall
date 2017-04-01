@@ -7,7 +7,6 @@ module.exports = () => {
   router.post("/", (req, res) => {
     req.session = undefined;
     res.redirect('/');
-    return;
   });
   return router;
 }
