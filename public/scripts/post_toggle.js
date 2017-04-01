@@ -1,4 +1,5 @@
 function makeRating() {
+//this is appending the rating
   var $starContainer = $('<div>').addClass('stars');
   $starContainer.append($('<form id="stars">'));
   $starContainer.append($('<input class="star star-5" id="star-5">').attr('type', 'radio').attr('name', 'star'))
@@ -16,6 +17,7 @@ function makeRating() {
 }
 
 function makeThumbUp() {
+//this is the like button
   var $thumbContainer = $('<div>').addClass('like');
   $thumbContainer.append('<form id="like">')
     .append($('<i class="fa fa-thumbs-up" aria-hidden="true">'));
