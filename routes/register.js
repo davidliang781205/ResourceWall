@@ -63,6 +63,7 @@ module.exports = (knex) => {
             console.error("ERROR:", err);
             return res.status(400).end();
           }
+          console.log(req.body);
           req.session.user_id = userId;
           console.log("OK, result is:", userId);
           res.redirect("/");
