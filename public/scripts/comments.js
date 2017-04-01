@@ -19,4 +19,17 @@ $(() => {
     //   $('.all-tweets').addClass('err');
     // });
   });
+  // $('#cardModal .fa-thumbs-up').on('click', function (event) {
+  //   // let liked = false;
+  //   let count = 1;
+  //   $.ajax({
+  //     method: 'post',
+  //     url: '/likes',
+  //     data: count
+  //   }).done(function () {
+  //     // liked = true;
+  //   });
+  // });
+
+
 });

@@ -4,28 +4,114 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = (knex) => {
-  function insertComment(user_id, url_id, content, cb){
-    knex.insert({user_id: user_id, url_id: url_id, content: content})
+  function getUrltitle (){
+    knex('urls')
+      .select('title')
+      .where('title','=','')
+  }
+  function insertComment(_user_id, _url_id, content, created_at, cb){
+    knex.insert({user_id: _user_id, url_id: _url_id, content: content, created_at: created_at})
     .into("comments")
     .returning('id')
     .asCallback(function(err, id) {
       if (err) {
-        callback(err);
+        cb(err);
       }
-      callback(null, id);
+      cb(null, id);
     });
   }
   router.post("/", (req, res) => {
     let r = req.body;
-    insertComment(req.session.user_id, r.url_id, r.comment, (err, content) => {
+    console.log(req.body.origURL);
+    let date = new Date();
+    // console.log(req.session.user_id, ' user id');
+    // console.log(r.url_id, ' url id');
+    // console.log(r.comment, ' comment ');
+    // console.log(date, ' date ');
+    insertComment(Number(req.session.user_id), r.url_id, r.comment, date, (err, id) => {
       if (err){
-        cb(err);
+        console.log(err, '---- err ----');
+        return res.status (404).end(); // fix error #
       }
-      cb(null, content);
+      console.log('ty for commenting!');
+      // res.redirect('/');
     });
   });
   return router;
 }
+
+// "use strict";
+//
+// const express = require('express');
+// const router = express.Router();
+//
+// module.exports = (knex) => {
+//   router.post("/", (req, res) => {
+//
+//   let r = req.body;
+//   if(!r.content || req.session.user_id){
+//     req.flash('error', 'Please login or register first!');
+//     res.redirect('/');
+//     return;
+//   }
+//   knex('comments')
+//     .select(1)
+//     .where({url_id: r.url_id})
+//     .limit(1)
+//     .then((rows) => {
+//       if(!rows.length){
+//         return Promise.reject({
+//           // req.flash('URL does not exist'),
+//           // res.status(409).end()
+//         });
+//       }
+//       return;
+//     })
+//     .then(() => {
+//       return knex('comments').insert({
+//         user_id: r.session.user_id,
+//         url_id: r.url_id,
+//         content: r.content
+//       })
+//     })
+//     .then(() => {
+//         // req.flash('info', 'Thank you for commenting!');
+//         // res.redirect('/');
+//     })
+//     .catch((err) => {
+//         // req.flash('error', err.message);
+//         res.redirect('/');
+//       });
+//     });
+//   return router;
+// }
+
+
+// knex('comments')
+//   .select(1)
+//   .where({url_id: r.url_id})
+//   .limit(1);
+//   .then((rows) => {
+//     if(!rows.length){
+//       return Promise.reject({
+//         req.flash('URL does not exist'),
+//         res.status(409).end()
+//       });
+//     }return;
+//   }).then(() => {
+//     return knex('comments').insert({
+//       user_id: req.session.user_id,
+//       url_id: r.url_id,
+//       content: r.content
+//     }).then(() => {
+//       req.flash('info', 'Thank you for commenting!');
+//       // res.redirect('/');
+//     }).catch((err) => {
+//       req.flash('error', err.message);
+//       res.redirect('/');
+//     });
+//   });
+
 
 
   //   knex("comments")
