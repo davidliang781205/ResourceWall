@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -29,20 +29,21 @@
 
     <div id="wrapper">
         <% include ./partials/_nav %>
+        <% include ./partials/_flash %>
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
           <% include ./partials/_side_menu %>
         </div>
         <div id="page-content-wrapper">
 
-          <% 
+          <%
             var postCount = posts.length;
-            while (postCount > 0){ 
+            while (postCount > 0){
           %>
               <% include ./partials/_card_row %>
           <%
-            postCount = postCount -4;     
-             } %>          
+            postCount = postCount -4;
+             } %>
         </div>
 
         <% include ./partials/_create_post %>
