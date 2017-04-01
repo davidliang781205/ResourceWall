@@ -4,15 +4,24 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = (knex) => {
+  function insertComment(user_id, url_id, content, cb){
+    knex.insert({user_id: user_id, url_id: url_id, content: content})
+    .into("comments")
+    .returning('id')
+    .asCallback(function(err, id) {
+      if (err) {
+        callback(err);
+      }
+      callback(null, id);
+    });
+  }
   router.post("/", (req, res) => {
-    knex.insert({user_id: req.sessoin.id, url_id: req.body.url_id, content: req.body.content})
-      .into("comments")
-      .returning('id')
-      .asCallback(function(err, id) {
-        if (err) {
-          callback(err);
-        }
-        callback(null, id);
+    let r = req.body;
+    insertComment(req.session.user_id, r.url_id, r.comment, (err, content) => {
+      if (err){
+        cb(err);
+      }
+      cb(null, content);
     });
   });
   return router;
