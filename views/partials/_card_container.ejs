@@ -8,13 +8,18 @@
 			<p class="card-text"><%= posts[postIndex - 1].description %></p>
 		</div>
 		<div class="post-meta">
-			<p class="urlid"></p>
-			<p class="username"></p>
-			<p class="likes"></p>
-			<p class="rates"></p>
-			<p class="comments"></p>
-			<p class="ori_url"></p>
-			<p class="created-at"></p>			
+		<article
+			id="<%= posts[postIndex - 1].id %>"
+			data-title="<%= posts[postIndex - 1].title %>"
+			data-description="<%= posts[postIndex - 1].description %>"
+			data-genre="<%= posts[postIndex - 1].genre %>"
+			data-media-type="<%= posts[postIndex - 1].media_type %>"
+			data-oriUrl="<%= posts[postIndex - 1].original_url %>"
+			data-tbUrl="<%= posts[postIndex - 1].thumbnail_url %>"
+			data-email="<%= posts[postIndex - 1].email %>"
+			data-likes="<%= posts[postIndex - 1].count %>"
+			data-rates="<%= posts[postIndex - 1].avg %>">
+		</article>
 		</div>
 	</div>
 </div>
