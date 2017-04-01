@@ -43,19 +43,23 @@ $(() => {
     $body.append($('<div class="user-actions">')
       .append(makeRating())
       .append(makeThumbUp()));
-    $body.append($(this).find('div .post-meta'));
 
     $body.append($(this).find('.post-meta'));
 
     $('#cardModal').modal('toggle');
     $('#cardModal .fa-thumbs-up').on('click', function(event) {
+      // let liked = false;
+      // console.log($(.fa-thumbs-up).val(), 'val');
       let count = 1;
+      // if($('.fa-thumbs-up').active())
+      // else('.fa-thumbs-up').deactivate()
       $.ajax({
         method: 'post',
         url: '/likes',
         data: count
       }).done(function() {
         console.log(' === like is clicked === ');
+        // $('.fa-thumbs-up').active()
       });
     });
   });
