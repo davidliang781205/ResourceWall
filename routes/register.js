@@ -53,7 +53,7 @@ module.exports = (knex) => {
     let emailExist = emailExistFunc(req.body.email);
     emailExist.then((email)=> {
       if (email) {
-        req.flash("error", "Email already exists, please use another");
+        req.flash("error", "Email already exists, please use another or login");
         res.redirect("/");
         return;
       }
