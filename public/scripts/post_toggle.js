@@ -42,7 +42,6 @@ $(() => {
     $body.append($('<div class="user-actions">')
       .append(makeRating())
       .append(makeThumbUp()));
-
     $body.append($(this).find('div .post-meta'));
 
     $('#cardModal').modal('toggle');
