@@ -6,46 +6,49 @@
                 <h4 class="modal-title">Create a Post</h4>
             </div>
             <div class="modal-body">
-                <form>
+            <% if (errors.length || info.length){ %>
+              <% include ./_flash %>
+            <% } %>
+            <%= errors %>
+                <form action="/createpost" method="POST">
                     <div class="form-group">
                         <label for="new-url">URL:</label>
-                        <input class="form-control" id="new-url"></input>
+                        <input class="form-control" id="new-url" name="origURL">
                         <br />
                         <label for="new-title">Title:</label>
-                        <input class="form-control" id="new-title"></input>
+                        <input class="form-control" id="new-title" name="title">
                         <br />
                         <label for="new-description">Description:</label>
-                        <textarea class="form-control" id="new-description"></textarea>
+                        <textarea class="form-control" id="new-description" name="description"></textarea>
                         <br />
-                        <label for="new-genre">Genre:</label><br />
+                        <label for="new-genre" name="genre">Genre:</label><br />
                             <label class="checkbox-inline">
-                            <input type="checkbox" value="Action">Action
+                            <input type="checkbox" value="Action" name="action">Action
                             </label>
                             <label class="checkbox-inline">
-                            <input type="checkbox" value="Comedy">Comedy
+                            <input type="checkbox" value="Comedy" name="comedy">Comedy
                             </label>
                             <label class="checkbox-inline">
-                            <input type="checkbox" value="Documentary">Documentary
+                            <input type="checkbox" value="Documentary" name="documentary">Documentary
                             </label>
                             <label class="checkbox-inline">
-                            <input type="checkbox" value="Fantasy">Fantasy
+                            <input type="checkbox" value="Fantasy" name="fantasy">Fantasy
                             </label>
                             <label class="checkbox-inline">
-                            <input type="checkbox" value="Horror">Horror
+                            <input type="checkbox" value="Horror" name="horror">Horror
                             </label>
                             <label class="checkbox-inline">
-                            <input type="checkbox" value="Romance">Romance
+                            <input type="checkbox" value="Romance" name="romance">Romance
                             </label>
                             <label class="checkbox-inline">
-                            <input type="checkbox" value="Sci-Fi">Sci-Fi
+                            <input type="checkbox" value="Sci-Fi" name="scifi">Sci-Fi
                             </label>
                             <label class="checkbox-inline">
-                            <input type="checkbox" value="Everything-Else">Everything Else
-                            </label>
-
+                            <input type="checkbox" value="Everything-Else" name="everythingelse">Everything Else
+                          </label>
                     </div>
                     <hr />
-                    <button type="button" class="btn btn-primary submit-button" data-dismiss="modal">Create</button>                    
+                    <input type="submit" class="btn btn-primary submit-button" value="create  ">
                 </form>
             </div>
         </div>
