@@ -55,7 +55,7 @@ app.use("/", homePage(knex));
 app.use("/login", usersRoutesLogin(knex));
 app.use("/logout", usersRoutesLogout());
 app.use("/register", registerRoutes(knex));
-// app.use("/create_post", createPostRoutes(knex));
+app.use("/createpost", createPostRoutes(knex));
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
