@@ -6,10 +6,11 @@ const router = express.Router();
 module.exports = (knex) => {
   router.post("/", (req, res) => {
     let r = req.body;
-    let tempStar = r.rate
     let date = new Date();
-    knex.insert({user_id: req.session.user_id, url_id: r.urlid, rating: r.rate, created_at: date})
-      .into("rates")
+    knex("rates")
+      .where('user_id', '=', req.session.user_id, 'AND',
+      'url_id', '=', r.urlid, 'AND', 'rating', '=', r.rate)
+      .del()
       .asCallback(function(err) {
         if (err) {
           console.log(err);
