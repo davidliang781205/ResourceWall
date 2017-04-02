@@ -2,8 +2,8 @@ $(() => {
 
   $('#cardModal .submit-button').on('click', function(event) {
     event.preventDefault();
-    let comment = $('#cardModal textarea');
-    let urlid = $('#cardModal .post-meta').data('id');
+    var comment = $('#cardModal textarea');
+    var urlid = $('#cardModal .post-meta').data('id');
 
     $.ajax({
       method: 'post',
@@ -12,10 +12,18 @@ $(() => {
         comment: comment.val(),
         urlid: urlid
       }
-    }).done(function() {
-      $('#cardModal .modal-comments').empty();
+    }).done(function(row) {
+      var urlid = $('#cardModal .post-meta').data('id');
+      var $comment = $('<div class="comment">').append('<hr>');
+      $comment
+        .append($('<div class="comment-content">').text(row[0].content))
+        .append($('<div class="comment-user">').text(row[0].email))
+
+      $('#cardModal .post-meta').append($comment);
+      $('div[data-id=' + urlid + ']').append($comment);
       comment.val('');
 
+      console.log(urlid);
     })
   });
 });

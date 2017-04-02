@@ -11,9 +11,11 @@ module.exports = (query) => {
       info: req.flash("info")
     };
 
+
+
     query.getLikesRates((e) => {
       templateVars.posts = e;
-      query.getLikesRates((e) => {
+      query.getComments((e) => {
         templateVars.postComments = e;
         res.render('index', templateVars);
         return;

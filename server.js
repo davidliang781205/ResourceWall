@@ -58,7 +58,7 @@ app.use("/login", usersRoutesLogin(knex));
 app.use("/logout", usersRoutesLogout());
 app.use("/register", registerRoutes(knex));
 app.use("/createpost", createPostRoutes(knex));
-app.use("/comments", comments(knex));
+app.use("/comments", comments(knex, query));
 app.use("/likes", likes(knex));
 
 app.listen(PORT, () => {
