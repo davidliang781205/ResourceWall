@@ -27,15 +27,16 @@ function makeThumbUp() {
 
 $(() => {
   $('.card').click(function(e) {
-    var $title = $(this).find('.caption .card-title').text();
+    var $title = $('#cardModal .modal-body');
     var $subtitle = $(this).find('.caption .card-subtitle').text();
     var $description = $(this).find('.caption').children('.card-text').text();
     var $media = $(this).find('img').attr('src');
     var $title = $('#cardModal .modal-title');
     var $body = $('#cardModal .modal-body');
+
     $('#cardModal .modal-body').empty();
-    $title.text($title);
-    $title.append($('<hr>'));
+    $title.text($(this).find('.caption .card-title').text());
+    $title.append($('<br />'));
     $title.append($('<h6>').text($subtitle));
     $body.append($('<img class="post-image">').attr('src', $media));
     $body.append($('<div class="post-description">').text($description));
@@ -44,23 +45,11 @@ $(() => {
       .append(makeRating())
       .append(makeThumbUp()));
 
-    $body.append($(this).find('.post-meta'));
+
+    $body.append($('<div class="modal-comments">')
+      .append($(this).find('div .post-meta').clone().css('display', 'block')));
 
     $('#cardModal').modal('toggle');
-    $('#cardModal .fa-thumbs-up').on('click', function(event) {
-      // let liked = false;
-      // console.log($(.fa-thumbs-up).val(), 'val');
-      let count = 1;
-      // if($('.fa-thumbs-up').active())
-      // else('.fa-thumbs-up').deactivate()
-      $.ajax({
-        method: 'post',
-        url: '/likes',
-        data: count
-      }).done(function() {
-        console.log(' === like is clicked === ');
-        // $('.fa-thumbs-up').active()
-      });
-    });
+
   });
 })
