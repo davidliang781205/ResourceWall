@@ -19,8 +19,9 @@ function makeRating() {
 function makeThumbUp() {
   //this is the like button
   var $thumbContainer = $('<div>').addClass('like');
-  $thumbContainer.append('<form id="like">')
-    .append($('<i class="fa fa-thumbs-up" aria-hidden="true">'));
+  var $formContainer = $('<form id="like" action="/likes" method="POST">');
+  $thumbContainer.append($formContainer)
+  $formContainer.append($('<i class="fa fa-thumbs-up" aria-hidden="true" data-like-value="true">'));
 
   return $thumbContainer;
 }
