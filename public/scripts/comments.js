@@ -13,8 +13,9 @@ $(() => {
         urlid: urlid
       }
     }).done(function() {
-      comment.empty;
-      $('#cardModal .modal-comment').empty();
+      $('#cardModal .modal-comments').empty();
+      comment.val('');
+
     })
   });
 });
