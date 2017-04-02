@@ -15,7 +15,8 @@ module.exports = (knex) => {
         genre: genre,
         media_type: mediaType,
         original_url: origURL,
-        thumbnail_url: thumbURL
+        thumbnail_url: thumbURL,
+        created_at: new Date()
       })
       .into("urls")
       .returning('id')
@@ -37,7 +38,7 @@ module.exports = (knex) => {
     if (validateUrl) {
       let r = req.body;
       let genreArr = combingGenres(req.body);
-      insertURL(req.session.user_id, r.description, r.title,
+      insertURL(Number(req.session.user_id), r.description, r.title,
         genreArr, r.media_type, r.origURL,
         r.thumbnail_url, (err, userId) => {
           if (err) {
