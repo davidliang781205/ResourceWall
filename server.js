@@ -22,7 +22,6 @@ const knexLogger = require('knex-logger');
 const homePage = require("./routes/home");
 const usersRoutesLogin = require("./routes/user_login");
 const usersRoutesLogout = require("./routes/user_logout");
-// const usersRoutes = require("./routes/users");
 const registerRoutes = require("./routes/register");
 const createPostRoutes = require("./routes/insertUrl");
 const comments = require("./routes/insertComment");
@@ -48,7 +47,7 @@ app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
   debug: true,
-  outputStyle: 'expanded'
+  outputStyle: 'compressed'
 }));
 app.use(express.static("public"));
 

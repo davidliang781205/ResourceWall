@@ -7,9 +7,8 @@
 			<hr>
 			<p class="card-text"><%= posts[postIndex - 1].description %></p>
 		</div>
-		<div class="post-meta">
-		<article
-			id="<%= posts[postIndex - 1].id %>"
+		<div class="post-meta"
+			data-id="<%= posts[postIndex - 1].id %>"
 			data-title="<%= posts[postIndex - 1].title %>"
 			data-description="<%= posts[postIndex - 1].description %>"
 			data-genre="<%= posts[postIndex - 1].genre %>"
@@ -19,7 +18,8 @@
 			data-email="<%= posts[postIndex - 1].email %>"
 			data-likes="<%= posts[postIndex - 1].count %>"
 			data-rates="<%= posts[postIndex - 1].avg %>">
-		</article>
+
+			<% include ./_card_modal_comments %>
 		</div>
 	</div>
 </div>

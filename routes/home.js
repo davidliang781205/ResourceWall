@@ -39,10 +39,11 @@ module.exports = (knex) => {
         return knex
           .select('urls.id',
             'comments.content',
-            'comments.user_id'
+            'users.email'
           )
           .from('urls')
-          .leftJoin('comments', 'comments.user_id', '=', 'urls.user_id')
+          .leftJoin('comments', 'comments.url_id', '=', 'urls.id')
+          .join('users', 'users.id', '=', 'comments.user_id')
       })
       .then((rows) => {
         templateVars.postComments = rows;
