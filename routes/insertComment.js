@@ -3,7 +3,8 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (knex) => {
+
+module.exports = (knex, query) => {
   router.post("/", (req, res) => {
     let r = req.body;
     knex.insert({
@@ -13,7 +14,8 @@ module.exports = (knex) => {
         created_at: new Date()
       })
       .into("comments")
-      .then(() => {
+      .returning('id')
+      .then((id) => {
         return knex
           .select('urls.id',
             'comments.content',
@@ -22,10 +24,10 @@ module.exports = (knex) => {
           .from('urls')
           .leftJoin('comments', 'comments.url_id', '=', 'urls.id')
           .join('users', 'users.id', '=', 'comments.user_id')
-      })
-      .then((rows) => {
-        templateVars.postComments = rows;
-        res.render("index", templateVars);
+          .where('comments.id', Number(id))
+      }).then((row) => {
+        console.log(row);
+        res.json(row);
       })
       .catch((err) => {
         res.status(404).end();

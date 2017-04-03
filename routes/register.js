@@ -9,8 +9,8 @@ module.exports = (knex) => {
 
   function insertNewUser(email, password, callback) {
     const hashed_password = bcrypt.hashSync(password, 10);
-
-    knex.insert({ email: email, password: hashed_password })
+    let date = new Date();
+    knex.insert({ email: email, password: hashed_password, created_at: date })
       .into("users")
       .returning('id')
       .asCallback(function(err, ids) {
