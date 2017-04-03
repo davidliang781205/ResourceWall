@@ -46,7 +46,7 @@ module.exports = (knex) => {
             return res.status(400).end();
           } else {
             console.log("OK, result is:", userId);
-            res.redirect("/");
+            res.redirect("/userProfile");
           }
         });
     } else {

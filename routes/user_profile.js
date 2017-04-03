@@ -68,13 +68,15 @@ module.exports = (knex) => {
         .groupBy('urls.original_url')
         .groupBy('urls.thumbnail_url')
         .groupBy('users.email')
-        .where(function(){
-          this.where('users.id', req.session.user_id)
-          .orWhere("likes.user_id", req.session.user_id)
-        });
+        .where('urls.user_id', Number(req.session.user_id))
+
+          // function(){
+          // this.where('users.id', Number(req.session.user_id))
+          // .orWhere("likes.user_id", Number(req.session.user_id))
+        // });
       })
         .then((rows) => {
-          console.log("this is rows in userprofoe: ", rows);
+          // console.log("this is rows in userprofoe: ", rows);
           templateVars.posts = rows;
           return knex
           .select('urls.id',
@@ -85,10 +87,41 @@ module.exports = (knex) => {
           .leftJoin('comments', 'comments.url_id', '=', 'urls.id')
           .join('users', 'users.id', '=', 'comments.user_id');
         })
-        .then((rows) => {
+        .then((rows)=> {
           templateVars.postComments = rows;
+          return knex
+        .select('urls.id',
+          'urls.title',
+          'urls.description',
+          'urls.genre',
+          'urls.media_type',
+          'urls.original_url',
+          'urls.thumbnail_url',
+          'users.email'
+        )
+        .count('likes.url_id')
+        .avg('rates.rating')
+        .from('urls')
+        .join('users', 'users.id', '=', 'urls.user_id')
+        .leftJoin('likes', 'likes.url_id', '=', 'urls.id')
+        .leftJoin('rates', 'rates.url_id', '=', 'urls.user_id')
+        .groupBy('urls.id')
+        .groupBy('urls.description')
+        .groupBy('urls.genre')
+        .groupBy('urls.media_type')
+        .groupBy('urls.original_url')
+        .groupBy('urls.thumbnail_url')
+        .groupBy('users.email')
+        .where('likes.user_id', Number(req.session.user_id))
+
+      })
+        .then((rows) => {
+          templateVars.urlsLiked = rows;
+          console.log("this is templateVars userProfileyayays: ", templateVars);
           res.render('user', templateVars);
 
+        }).catch((err) => {
+          console.log(err);
         })
 
         })

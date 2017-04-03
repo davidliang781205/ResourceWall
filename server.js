@@ -26,6 +26,8 @@ const homePage = require("./routes/home");
 const usersRoutesLogin = require("./routes/user_login");
 const usersRoutesLogout = require("./routes/user_logout");
 const userProfileRoutes = require("./routes/user_profile");
+// const userUpdateProfile= require("./routes/updateProfile")
+
 const registerRoutes = require("./routes/register");
 const searchBarRoutes = require("./routes/search_bar");
 const createPostRoutes = require("./routes/insertUrl");
@@ -76,6 +78,7 @@ app.use("/comments", comments(knex, query));
 app.use("/likes", likes(knex));
 app.use("/rates", rates(knex));
 app.use("/updateRates", updateRates(knex));
+// app.use("/updateProfile", userUpdateProfile(knex));
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
