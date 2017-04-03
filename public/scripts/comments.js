@@ -16,8 +16,17 @@ $(() => {
       $comment
         .append($('<div class="comment-content">').text(row[0].content))
         .append($('<div class="comment-user">').text(row[0].email))
-      $('div[data-id=' + urlid + ']').append($comment);
-      $('#cardModal .post-meta').append($comment);
+      console.log($('div[data-id=' + urlid + ']').text());
+      if ($('div[data-id=' + urlid + ']').val() === 'No comment') {
+        $('div[data-id=' + urlid + ']').empty();
+        $('#cardModal .post-meta').empty();
+        $('div[data-id=' + urlid + ']').append($comment);
+        $('#cardModal .post-meta').append($comment);
+
+      } else {
+        $('div[data-id=' + urlid + ']').append($comment);
+        $('#cardModal .post-meta').append($comment);
+      }
 
       comment.val('');
     })
@@ -131,13 +140,13 @@ $(() => {
       if ($this.hasClass('highlight')) {
         $this.removeClass('highlight');
         $this.css('color', 'white')
-        // $.ajax({
-        //   method: 'post',
-        //   url: '/updateRates',
-        //   data:{
-        //     urlid:urlid
-        //   }
-        // })
+          // $.ajax({
+          //   method: 'post',
+          //   url: '/updateRates',
+          //   data:{
+          //     urlid:urlid
+          //   }
+          // })
       } else {
         $this.addClass('highlight');
         let rate = 1;

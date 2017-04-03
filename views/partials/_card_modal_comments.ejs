@@ -1,14 +1,10 @@
-<% var commentArr = postComments.filter(function (e) { return e.id === postIndex; }) %>
+<% var commentArr = postComments.filter(function (e) { return e.id === posts.length - i; }) %>
 <% if(commentArr.length > 0) { 
-    for (var i = 0; i < commentArr.length; i++){ %>
+    for (var j = 0; j < commentArr.length; j++){ %>
         <hr />
         <div class="comment">
-            <div class="comment-content"><%= commentArr[i].content %></div>
-            <div class="comment-user"><%= commentArr[i].email %></div>
+            <div class="comment-content"><%= commentArr[j].content %></div>
+            <div class="comment-user"><%= commentArr[j].email %></div>
         </div>
-    <% } %>
-    <% } else { %>
-    <hr />
-    <div>No comment</div>
-<% } %>
+    <% } } %>
 
