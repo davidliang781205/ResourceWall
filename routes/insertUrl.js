@@ -8,7 +8,7 @@ const fs = require('fs');
 
 module.exports = (knex) => {
   function getThumbnail(url, id) {
-    const BASE_URL = 'https://api.thumbnail.ws/api/aba7ddeea00516301ccf735cb83cfb582bb8a1c9f763/thumbnail/get?url=http%3A%2F%2F' + url + '%2F&width=450';
+    const BASE_URL = 'https://api.thumbnail.ws/api/aba7ddeea00516301ccf735cb83cfb582bb8a1c9f763/thumbnail/get?url=http%3A%2F%2F' + url + '%2F&width=540';
 
     request.get(url)
       .on('error', function(err) {
