@@ -6,16 +6,14 @@ const router = express.Router();
 module.exports = (knex) => {
   router.post("/", (req, res) => {
     let r = req.body;
-    let date = new Date();
+    const userInfo = [];
+
     knex("rates")
-      .where('user_id', '=', req.session.user_id, 'AND',
-      'url_id', '=', r.urlid, 'AND', 'rating', '=', r.rate)
-      .del()
-      .asCallback(function(err) {
-        if (err) {
-          console.log(err);
-        }
-        // res.redirect('/');
+      .select(1)
+      .where({user_id: req.session.user_id, url_id: r.urlid})
+      .limit(1)
+      .then((rows) => {
+        console.log(rows, 'rows');
       });
   });
   return router;

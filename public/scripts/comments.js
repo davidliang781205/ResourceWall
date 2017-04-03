@@ -1,5 +1,4 @@
 $(() => {
-  var urlid = $('#cardModal .post-meta').data('id');
   $('#cardModal .submit-button').on('click', function(event) {
     event.preventDefault();
     var comment = $('#cardModal textarea');
@@ -30,7 +29,7 @@ $(() => {
     $('#star-5').click(function(e) {
       let $this = $(this);
       if ($this.hasClass('highlight')) {
-        // $this.css('background-color', 'white')
+        $this.css('background-color', 'white')
         $this.removeClass('highlight');
         let rate = -5;
         $.ajax({
@@ -92,17 +91,7 @@ $(() => {
       let $this = $(this);
       if ($this.hasClass('highlight')) {
         $this.removeClass('highlight');
-        let rate = -3;
-        $.ajax({
-          method: 'post',
-          url: '/rates',
-          data: {
-            rate: rate,
-            urlid: urlid
-          }
-        }).done(function() {
-          console.log(('star5 clicked'));
-        })
+
       } else {
         $this.addClass('highlight');
         let rate = 3;
@@ -122,17 +111,6 @@ $(() => {
       let $this = $(this);
       if ($this.hasClass('highlight')) {
         $this.removeClass('highlight');
-        let rate = -2;
-        $.ajax({
-          method: 'post',
-          url: '/rates',
-          data: {
-            rate: rate,
-            urlid: urlid
-          }
-        }).done(function() {
-          console.log(('star5 clicked'));
-        })
       } else {
         $this.addClass('highlight');
         let rate = 2;
@@ -152,17 +130,14 @@ $(() => {
       let $this = $(this);
       if ($this.hasClass('highlight')) {
         $this.removeClass('highlight');
-        let rate = -1;
-        $.ajax({
-          method: 'post',
-          url: '/rates',
-          data: {
-            rate: rate,
-            urlid: urlid
-          }
-        }).done(function() {
-          console.log(('star5 clicked'));
-        })
+        $this.css('color', 'white')
+        // $.ajax({
+        //   method: 'post',
+        //   url: '/updateRates',
+        //   data:{
+        //     urlid:urlid
+        //   }
+        // })
       } else {
         $this.addClass('highlight');
         let rate = 1;
