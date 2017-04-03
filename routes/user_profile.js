@@ -7,10 +7,13 @@ module.exports = (queriesProfile, knex) => {
   let sessionEmail;
   let sessionId;
   router.get("/userProfile", (req, res) => {
+//had to convert req.session.user_id to Number because a new registration was passing a string numb
+//value to user_profile unless user logged out + logged back in to get id to an integer value
+    let idNumb = Number(req.session.user_id);
     console.log("welcome to get /userProfile knex query below");
     knex("users")
       .select("id", "email")
-      .where({id: req.session.user_id})
+      .where({id: idNumb})
       .then((rows) => {
         console.log("this is rows after query!: ", rows);
   //ignore the anonymous instead use index to get through it! like a normal object!
@@ -20,9 +23,8 @@ module.exports = (queriesProfile, knex) => {
           sessionId = rows[row].id;
         }
 
-        // sessionEmail = rows[0].email;
-        console.log("this should be the session email: ", sessionEmail);
-        console.log("this should be the session id: ", sessionId);
+        console.log("this should be the session email: ", sessionEmail); //it is
+        console.log("this should be the session id: ", sessionId);       //it is
 
 
         let templateVars = {
