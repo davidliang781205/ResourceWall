@@ -9,8 +9,8 @@ $(() => {
         urlid: urlid
       }
     }).done(function(like) {
-      $('#cardModal .like-count').text(like[0].count);
       $('div[data-id=' + urlid + ']').data('likes', like[0].count);
+      $('#cardModal .like-count').text(like[0].count);
     })
   });
 

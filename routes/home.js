@@ -9,20 +9,21 @@ module.exports = (query, knex) => {
   let templateVars;
   router.get("/", (req, res) => {
 
-    console.log("welcome to get /userProfile knex query below");
+// <<<<<<< HEAD
+//     console.log("welcome to get /userProfile knex query below");
 
-    // if (req.sessoin.user_id) {
-    //   let idNumb = Number(req.session.user_id);
-    //   knex("users")
-    //     .select("id", "email")
-    //     .where({id: idNumb})
-    //     .limit(1)
-    //     .then((rows) => {
+            //     // if (req.sessoin.user_id) {
+            //     //   let idNumb = Number(req.session.user_id);
+            //     //   knex("users")
+            //     //     .select("id", "email")
+            //     //     .where({id: idNumb})
+            //     //     .limit(1)
+            //     //     .then((rows) => {
 
-    //       sessionEmail = rows[0].email;
-    //       sessionId = rows[0].id;
-    //   });
-    // }
+            //     //       sessionEmail = rows[0].email;
+            //     //       sessionId = rows[0].id;
+            //     //   });
+            //     // }
 
       let templateVars = {
         user: req.session.user_id,
@@ -33,14 +34,24 @@ module.exports = (query, knex) => {
 
 
 
-      query.getLikesRates((e) => {
-        templateVars.posts = e;
-        query.getComments((e) => {
-          templateVars.postComments = e;
-          console.log("this is templateVars HOmepage: ", templateVars);
-          res.render('index', templateVars);
-          return;
-        });
+//       query.getLikesRates((e) => {
+//         templateVars.posts = e;
+//         query.getComments((e) => {
+//           templateVars.postComments = e;
+//           console.log("this is templateVars HOmepage: ", templateVars);
+//           res.render('index', templateVars);
+//           return;
+//         });
+// =======
+    query.getLikesRates((e) => {
+      templateVars.posts = e;
+      query.getComments((e) => {
+        console.log(e);
+        templateVars.postComments = e;
+        console.log("this is templateVars HOmepage: ", templateVars);
+        res.render('index', templateVars);
+        return;
+        0c9f1d42b76d6db54cf39598cc0e761d5d783901
       });
   });
 
