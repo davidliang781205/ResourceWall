@@ -15,11 +15,10 @@ $(() => {
     $('#cardModal .modal-subtitle').text($(this).find('.caption .card-subtitle').text());
     $body.find('img').attr('src', media);
     $body.find('.post-description').text(description);
-    $body.append($('<hr>'));
     $('#cardModal .user-actions').find('.rate-count').text(rating);
     $('#cardModal .user-actions').find('.like-count').text($(this).find('div .post-meta').data('likes'));
-    $('div .modal-comments')
-      .append($(this).find('div .post-meta').clone().css('display', 'block'));
+    $('div .modal-comments').empty();
+    $('div .modal-comments').append($(this).find('div .post-meta').clone().css('display', 'block'));
 
     $('#cardModal').modal('toggle');
 

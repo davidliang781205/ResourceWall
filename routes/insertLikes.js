@@ -10,6 +10,7 @@ module.exports = (knex) => {
     knex.insert({
         user_id: Number(req.session.user_id),
         url_id: Number(r.urlid),
+        created_at: new Date()
       })
       .into("likes")
       .returning('url_id')
@@ -20,7 +21,6 @@ module.exports = (knex) => {
           .where('likes.url_id', Number(id))
       })
       .then((value) => {
-        console.log(value);
         res.json(value);
       })
       .catch((err) => {

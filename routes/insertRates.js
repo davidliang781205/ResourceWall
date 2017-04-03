@@ -5,17 +5,28 @@ const router = express.Router();
 
 module.exports = (knex) => {
   router.post("/", (req, res) => {
-    let r = req.body;
-    let tempStar = r.rate
-    let date = new Date();
-    knex.insert({user_id: req.session.user_id, url_id: r.urlid, rating: r.rate, created_at: date})
-      .into("rates")
-      .asCallback(function(err) {
-        if (err) {
-          console.log(err);
-        }
-        // res.redirect('/');
-      });
+    knex.insert({
+      user_id: req.session.user_id,
+      url_id: Number(req.body.urlid),
+      rating: req.body.rating,
+      created_at: new Date()
+    })
+
+    .into("rates")
+      .returning('url_id')
+      .then((id) => {
+        return knex
+          .avg('rating')
+          .from('rates')
+          .where('rates.url_id', Number(id))
+      })
+      .then((value) => {
+        res.json(value);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   });
+
   return router;
 }
