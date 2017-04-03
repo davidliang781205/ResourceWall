@@ -3,6 +3,7 @@
 module.exports = function makeDataHelpers(knex) {
   return {
     getLikesRates: function(cb) {
+
       knex
         .select('urls.id',
           'urls.title',
