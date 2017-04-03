@@ -19,10 +19,13 @@ const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 
 const query = require("./queries")(knex);
+const queriesProfile = require("./queriesProfile")(knex);
+
 // Seperated Routes for each Resource
 const homePage = require("./routes/home");
 const usersRoutesLogin = require("./routes/user_login");
 const usersRoutesLogout = require("./routes/user_logout");
+const userProfileRoutes = require("./routes/user_profile");
 const registerRoutes = require("./routes/register");
 const searchBarRoutes = require("./routes/search_bar");
 const createPostRoutes = require("./routes/insertUrl");
@@ -59,10 +62,12 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use(homePage(query));
+app.use(userProfileRoutes(queriesProfile, knex));
 app.use("/login", usersRoutesLogin(knex));
 app.use("/logout", usersRoutesLogout());
 app.use("/register", registerRoutes(knex));
 app.use("/createpost", createPostRoutes(knex));
+// app.use("/userProfile", userProfileRoutes(knex));
 
 app.use("/search_bar", searchBarRoutes(knex));
 

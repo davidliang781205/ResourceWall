@@ -26,6 +26,7 @@ module.exports = function makeDataHelpers(knex) {
         .groupBy('urls.original_url')
         .groupBy('urls.thumbnail_url')
         .groupBy('users.email')
+        // .where('users.id urls.user_id )
         .then((rows) => {
           cb(rows);
         })

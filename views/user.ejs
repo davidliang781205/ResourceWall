@@ -1,0 +1,59 @@
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resource Wall</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/side_menu.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/card.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/modal.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/post_toggle.js"></script>
+    <script type="text/javascript" src="/scripts/side_menu.js"></script>
+    <script type="text/javascript" src="/scripts/comments.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+    <h1 style="margin-left: 150px; color: aquamarine">Welcome ~ <%= email %></h1>
+        <% include ./partials/_nav %>
+        <% include ./partials/_flash %>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+          <% include ./partials/_side_menu %>
+        </div>
+        <div id="page-content-wrapper">
+
+          <%
+            var postCount = posts.length;
+            while (postCount > 0){
+          %>
+              <% include ./partials/_card_row %>
+          <%
+            postCount = postCount -4;
+             } %>
+        </div>
+
+        <% include ./partials/_create_post %>
+        <% include ./partials/_card_modal %>
+        <% include ./partials/_login %>
+        <% include ./partials/_register %>
+
+
+
+
+    </div>
+  </body>
+</html>
