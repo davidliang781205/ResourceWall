@@ -7,7 +7,7 @@
 			<hr />
 			<div class="preview">
 				<div class="like-preview"><i class="fa fa-thumbs-up"></i>  <%= posts[i].count %></div>
-				<% 
+				<%
 					if (!posts[i].avg || posts[i].avg === 0) { %>
 						<div class="rate-preview"><i class="fa fa-star"></i>  No rating</div>
 					<% } else { %>
@@ -16,7 +16,7 @@
 			</div>
 			<hr>
 			<div class="card-text"><%= posts[i].description %></div>
-			
+
 		</div>
 		<div class="post-meta"
 			data-id="<%= posts[i].id %>"
