@@ -1,4 +1,5 @@
 $(() => {
+  var urlid = $('#cardModal .post-meta').data('id');
   $('#cardModal .submit-button').on('click', function(event) {
     event.preventDefault();
     var comment = $('#cardModal textarea');
@@ -26,20 +27,25 @@ $(() => {
   $('.card').click(function(e) {
     let rate = 0;
     let urlid = $('#cardModal .post-meta').data('id');
-    $('.star-1').click(function(e) {
+    $('#star-5').click(function(e) {
       let $this = $(this);
       if ($this.hasClass('highlight')) {
+        // $this.css('background-color', 'white')
         $this.removeClass('highlight');
-        // $.ajax({
-        //   method: 'post',
-        //   url: '/updateRates',
-        //   data:{
-        //     urlid:urlid
-        //   }
-        // })
+        let rate = -5;
+        $.ajax({
+          method: 'post',
+          url: '/rates',
+          data: {
+            rate: rate,
+            urlid: urlid
+          }
+        }).done(function() {
+          console.log(('star5 clicked'));
+        })
       } else {
         $this.addClass('highlight');
-        rate = 5;
+        let rate = 5;
         $.ajax({
           method: 'post',
           url: '/rates',
@@ -52,20 +58,24 @@ $(() => {
         })
       }
     })
-    $('.star-2').click(function(e) {
+    $('#star-4').click(function(e) {
       let $this = $(this);
       if ($this.hasClass('highlight')) {
         $this.removeClass('highlight');
-        // $.ajax({
-        //   method: 'post',
-        //   url: '/updateRates',
-        //   data:{
-        //     urlid:urlid
-        //   }
-        // })
+        let rate = -4;
+        $.ajax({
+          method: 'post',
+          url: '/rates',
+          data: {
+            rate: rate,
+            urlid: urlid
+          }
+        }).done(function() {
+          console.log(('star5 clicked'));
+        })
       } else {
         $this.addClass('highlight');
-        rate = 4;
+        let rate = 4;
         $.ajax({
           method: 'post',
           url: '/rates',
@@ -78,20 +88,24 @@ $(() => {
         })
       }
     })
-    $('.star-3').click(function(e) {
+    $('#star-3').click(function(e) {
       let $this = $(this);
       if ($this.hasClass('highlight')) {
         $this.removeClass('highlight');
-        // $.ajax({
-        //   method: 'post',
-        //   url: '/updateRates',
-        //   data:{
-        //     urlid:urlid
-        //   }
-        // })
+        let rate = -3;
+        $.ajax({
+          method: 'post',
+          url: '/rates',
+          data: {
+            rate: rate,
+            urlid: urlid
+          }
+        }).done(function() {
+          console.log(('star5 clicked'));
+        })
       } else {
         $this.addClass('highlight');
-        rate = 3;
+        let rate = 3;
         $.ajax({
           method: 'post',
           url: '/rates',
@@ -104,20 +118,24 @@ $(() => {
         })
       }
     })
-    $('.star-4').click(function(e) {
+    $('#star-2').click(function(e) {
       let $this = $(this);
       if ($this.hasClass('highlight')) {
         $this.removeClass('highlight');
-        // $.ajax({
-        //   method: 'post',
-        //   url: '/updateRates',
-        //   data:{
-        //     urlid:urlid
-        //   }
-        // })
+        let rate = -2;
+        $.ajax({
+          method: 'post',
+          url: '/rates',
+          data: {
+            rate: rate,
+            urlid: urlid
+          }
+        }).done(function() {
+          console.log(('star5 clicked'));
+        })
       } else {
         $this.addClass('highlight');
-        rate = 2;
+        let rate = 2;
         $.ajax({
           method: 'post',
           url: '/rates',
@@ -130,20 +148,24 @@ $(() => {
         })
       }
     })
-    $('.star-5').click(function(e) {
+    $('#star-1').click(function(e) {
       let $this = $(this);
       if ($this.hasClass('highlight')) {
         $this.removeClass('highlight');
-        // $.ajax({
-        //   method: 'post',
-        //   url: '/updateRates',
-        //   data:{
-        //     urlid:urlid
-        //   }
-        // })
+        let rate = -1;
+        $.ajax({
+          method: 'post',
+          url: '/rates',
+          data: {
+            rate: rate,
+            urlid: urlid
+          }
+        }).done(function() {
+          console.log(('star5 clicked'));
+        })
       } else {
         $this.addClass('highlight');
-        rate = 1;
+        let rate = 1;
         $.ajax({
           method: 'post',
           url: '/rates',
