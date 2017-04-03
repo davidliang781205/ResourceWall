@@ -27,24 +27,57 @@
   <body>
 
     <div id="wrapper">
-    <h1 style="margin-left: 150px; color: aquamarine">Welcome ~ <%= email %> to your profile</h1>
         <% include ./partials/_nav %>
-        <% include ./partials/_flash %>
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-          <% include ./partials/_side_menu %>
-        </div>
-        <div id="page-content-wrapper">
 
-          <%
-            var postCount = posts.length;
-            while (postCount > 0){
-          %>
-              <% include ./partials/_card_row %>
-          <%
-            postCount = postCount -4;
-             } %>
-        </div>
+    <h1 style="margin-left: 150px; color: aquamarine">Welcome ~ <%= email %> to your profile</h1>
+<!--
+    <form method="GET" action="/updateProfile">
+      <a href="/updateProfile"><label>Update Profile</label></a>
+    </form> -->
+
+    <% include ./partials/_flash %>
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <% include ./partials/_side_menu %>
+    </div>
+    <div id="page-content-wrapper">
+
+
+    <% if (email) { %>
+
+    <h2 style="margin-left: 150px; color: rgba(63, 81, 181, 0.73); margin-top: 40px; margin-bottom:
+    20px">Your URLS</h2>
+
+      <%
+        var postCount = posts.length;
+        while (postCount > 0){
+      %>
+          <% include ./partials/_card_row %>
+      <%
+        postCount = postCount -4;
+         } %>
+    <% } %>
+
+
+      <% if (urlsLiked.length) { %>
+
+    <h2 style="margin-left: 150px; color: rgba(63, 81, 181, 0.73); margin-top: 40px; margin-bottom:
+    20px">Your Likes</h2>
+
+      <%
+        postCount = urlsLiked.length;
+        posts = urlsLiked;
+        while (postCount > 0){
+      %>
+          <% include ./partials/_card_row %>
+      <%
+        postCount = postCount -4;
+         }} %>
+
+
+    </div>
+
+
 
         <% include ./partials/_create_post %>
         <% include ./partials/_card_modal %>

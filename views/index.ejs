@@ -19,7 +19,7 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/post_toggle.js"></script>
     <script type="text/javascript" src="/scripts/side_menu.js"></script>
-    <script type="text/javascript" src="/scripts/comments.js"></script>    
+    <script type="text/javascript" src="/scripts/comments.js"></script>
     <script type="text/javascript" src="/scripts/like.js"></script>
     <script type="text/javascript" src="/scripts/isotope.js"></script>
     <script type="text/javascript" src="https://unpkg.com/isotope-layout@3.0.3/dist/isotope.pkgd.min.js"></script>
@@ -30,7 +30,8 @@
   <body>
     <div id="wrapper">
         <% include ./partials/_nav %>
-    
+
+
     <h1 style="margin-left: 150px; color: aquamarine">Welcome</h1>
     <div class="button-group filters-button-group">
       <button class="btn btn-primary is-checked" data-filter="*">show all</button>
@@ -43,7 +44,11 @@
       <button class="btn btn-primary" data-filter="Sci-Fi">Sci-Fi</button>
       <button class="btn btn-primary" data-filter="Other">Other</button>
     </div>
-    
+
+
+
+    <h1 style="margin-left: 150px; color: aquamarine">Welcome. </h1>
+
         <% include ./partials/_flash %>
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -57,12 +62,13 @@
                         <% include ./partials/_card_container %>
                 <%
 
-                    } 
+                    }
                 %>
             </div>
         </div>
 
         </div>
+
 
         <% include ./partials/_create_post %>
         <% include ./partials/_card_modal %>

@@ -25,6 +25,7 @@ module.exports = (knex) => {
     if (validateUrl) {
       let r = req.body;
       let genreArr = combingGenres(req.body);
+
       let validateUrl = validator.isURL(req.body.origURL);
 
       knex.insert({
@@ -52,6 +53,18 @@ module.exports = (knex) => {
         .catch((err) => {
           console.log(err);
           res.redirect("/");
+
+      insertURL(Number(req.session.user_id), r.description, r.title,
+        genreArr, r.media_type, r.origURL,
+        r.thumbnail_url, (err, userId) => {
+          if (err) {
+            console.error("ERROR:", err);
+            return res.status(400).end();
+          } else {
+            console.log("OK, result is:", userId);
+            res.redirect("/userProfile");
+          }
+
         });
     } else {
       req.flash("error", "Please use a valid URL");

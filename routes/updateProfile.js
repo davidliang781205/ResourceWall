@@ -4,6 +4,12 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = (knex) => {
+
+  router.get("/updateProfile", (req, res) => {
+    res.render("update");
+  });
+
+
   router.post("/", (req, res) => {
     let r = req.body;
     const userInfo = [];
