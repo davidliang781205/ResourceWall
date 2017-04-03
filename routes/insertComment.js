@@ -3,7 +3,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 module.exports = (knex, query) => {
   router.post("/", (req, res) => {
     let r = req.body;
@@ -26,7 +25,6 @@ module.exports = (knex, query) => {
           .join('users', 'users.id', '=', 'comments.user_id')
           .where('comments.id', Number(id))
       }).then((row) => {
-        console.log(row);
         res.json(row);
       })
       .catch((err) => {
