@@ -17,6 +17,7 @@ module.exports = (query) => {
       templateVars.posts = e;
       query.getComments((e) => {
         templateVars.postComments = e;
+        console.log("this is templateVars HOmepage: ", templateVars);
         res.render('index', templateVars);
         return;
       });
