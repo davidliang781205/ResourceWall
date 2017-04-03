@@ -20,11 +20,10 @@ module.exports = (knex) => {
           .where('likes.url_id', Number(id))
       })
       .then((value) => {
-        console.log(value);
         res.json(value);
       })
       .catch((err) => {
-        res.json(err);
+        console.log(err);
       })
   });
 
