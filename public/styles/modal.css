@@ -23,7 +23,7 @@
 
 .like {
   float: left;
-  font-size: 1.5em
+  font-size: 1em
 }
 
 .comment {
@@ -76,12 +76,6 @@ label.star:hover {
 label.star:before {
   content: '\f006';
   font-family: FontAwesome
-}
-
-label.checkbox-inline {
-  display: block;
-  padding-left: 15px;
-  text-indent: -15px
 }
 
 input.checkbox {

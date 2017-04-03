@@ -3,56 +3,59 @@
 const express = require('express');
 const router = express.Router();
 const validator = require('validator');
+const request = require('request');
+const fs = require('fs');
 
 module.exports = (knex) => {
-  console.log("this is right inside funct");
+  function getThumbnail(url, id) {
+    const BASE_URL = 'https://api.thumbnail.ws/api/aba7ddeea00516301ccf735cb83cfb582bb8a1c9f763/thumbnail/get?url=http%3A%2F%2F' + url + '%2F&width=450';
 
-  function insertURL(userid, descr, title, genre, mediaType, origURL, thumbURL, callback) {
-    knex.insert({
-        user_id: userid,
-        description: descr,
-        title: title,
-        genre: genre,
-        media_type: mediaType,
-        original_url: origURL,
-        thumbnail_url: thumbURL,
-        created_at: new Date()
+    request.get(url)
+      .on('error', function(err) {
+        throw err;
       })
-      .into("urls")
-      .returning('id')
-      .asCallback(function(err, ids) {
-        if (err) {
-          console.error(err);
-          callback(err);
-        }
-        console.log(ids);
-        console.log("in insertUser knex function");
-        callback(null, ids);
-      });
+      .on('response', function(response) {})
+      .on('end', (end) => console.log('Download completed!'))
+      .pipe(fs.createWriteStream('./public/img/' + id + '.jpg'))
   }
 
   router.post("/", (req, res) => {
 
-    console.log("this is the req.body: ", req.body);
     let validateUrl = validator.isURL(req.body.origURL);
     if (validateUrl) {
       let r = req.body;
       let genreArr = combingGenres(req.body);
-      insertURL(Number(req.session.user_id), r.description, r.title,
-        genreArr, r.media_type, r.origURL,
-        r.thumbnail_url, (err, userId) => {
-          if (err) {
-            console.error("ERROR:", err);
-            return res.status(400).end();
-          } else {
-            console.log("OK, result is:", userId);
-            res.redirect("/");
-          }
+      let validateUrl = validator.isURL(req.body.origURL);
+
+      knex.insert({
+          user_id: Number(req.session.user_id),
+          description: r.description,
+          title: r.title,
+          genre: genreArr,
+          media_type: r.media_type,
+          original_url: r.origURL,
+          created_at: new Date()
+        })
+        .into("urls")
+        .returning('id')
+        .then((id) => {
+          console.log('updated');
+          getThumbnail(r.origURL, id);
+          return knex('urls')
+            .where('id', id)
+            .update({
+              thumbnail_url: id + '.jpg'
+            })
+        }).then(() => {
+          res.redirect("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/");
         });
     } else {
       req.flash("error", "Please use a valid URL");
       res.redirect("/");
-      console.log("url didnt pass validation so went throught here");
     }
   });
   return router;

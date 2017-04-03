@@ -1,19 +1,38 @@
-.card-subtitle .card-title {
-  display: inline-block;
+.card-title {
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 3.6em;
-  height: 3.6em
+  max-height: 2.4em;
+  height: 2.4em;
+  font-size: 1.2em;
+}
+
+.card-subtitle {
+  word-wrap: break-word;
+  overflow: hidden;
+  margin: 1em 0 0 1em;
+  max-height: 2em;
+  height: 2em;
 }
 
 .card-text {
-  display: inline-block;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 3.6em;
-  height: 3.6em
+  max-height: 4em;
+  height: 4em;
 }
 
 .post-meta {
-  display: none
+  display: none;
+}
+
+.preview {
+  overflow: auto;
+}
+
+.rate-preview {
+  float: right;
+}
+
+.like-preview {
+  float: left;
 }
