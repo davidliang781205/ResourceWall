@@ -13,14 +13,19 @@ module.exports = (knex) => {
       .then((rows) => {
         const user = rows[0];
         if (!user){
+        req.flash("error", "Please enter a valid email and password to log in");
+        res.redirect("/");
           return Promise.reject({
-            type:409,
-            message: "Bad Credentials"
+            // type:409,
+            // message: "Bad Credentials"
+
           });
         }
         const comparePasswords = bcrypt.compare(req.body.password, user.password);
         return comparePasswords.then((passwordsMatch) => {
           if (!passwordsMatch) {
+        req.flash("error", "Please enter a valid email and password to log in");
+        res.redirect("/");
             return Promise.reject({
               type:409,
               message: "Bad Credentials"

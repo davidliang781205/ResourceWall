@@ -63,7 +63,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use(homePage(query));
+app.use(homePage(query, knex));
 app.use(userProfileRoutes(knex));
 app.use("/login", usersRoutesLogin(knex));
 app.use("/logout", usersRoutesLogout());
