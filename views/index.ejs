@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -21,31 +21,47 @@
     <script type="text/javascript" src="/scripts/side_menu.js"></script>
     <script type="text/javascript" src="/scripts/comments.js"></script>    
     <script type="text/javascript" src="/scripts/like.js"></script>
+    <script type="text/javascript" src="/scripts/isotope.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/isotope-layout@3.0.3/dist/isotope.pkgd.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
   </head>
 
   <body>
-
     <div id="wrapper">
         <% include ./partials/_nav %>
     
     <h1 style="margin-left: 150px; color: aquamarine">Welcome</h1>
+    <div class="button-group filters-button-group">
+      <button class="btn btn-primary is-checked" data-filter="*">show all</button>
+      <button class="btn btn-primary" data-filter="Action">Action</button>
+      <button class="btn btn-primary" data-filter="Comedy">Comedy</button>
+      <button class="btn btn-primary" data-filter="Documentary">Documentary</button>
+      <button class="btn btn-primary" data-filter="Fantasy">Fantasy</button>
+      <button class="btn btn-primary" data-filter="Horror">Horror</button>
+      <button class="btn btn-primary" data-filter="Romance">Romance</button>
+      <button class="btn btn-primary" data-filter="Sci-Fi">Sci-Fi</button>
+      <button class="btn btn-primary" data-filter="Other">Other</button>
+    </div>
+    
         <% include ./partials/_flash %>
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
           <% include ./partials/_side_menu %>
         </div>
         <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="grid">
+                  <%  var postIndex = posts.length;
+                    for (var i = 0; (i < postIndex); i++) { %>
+                        <% include ./partials/_card_container %>
+                <%
 
-          <%
-            var postCount = posts.length;
-            while (postCount > 0){
-          %>
-              <% include ./partials/_card_row %>
-          <%
-            postCount = postCount -4;
-             } %>
+                    } 
+                %>
+            </div>
+        </div>
+
         </div>
 
         <% include ./partials/_create_post %>

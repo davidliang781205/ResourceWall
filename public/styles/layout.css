@@ -1,1 +1,13 @@
-html body{background-color:#4DC7BC;color:#EEE}html body #page-content-wrapper{background-color:#4DC7BC;margin:auto, 2em}
+html body {
+  background-color: #4DC7BC;
+  color: #EEE
+}
+
+html body #page-content-wrapper {
+  background-color: #4DC7BC;
+  margin: auto, 2em
+}
+
+.button-group {
+  text-align: center;
+}

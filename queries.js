@@ -27,7 +27,7 @@ module.exports = function makeDataHelpers(knex) {
         .groupBy('urls.original_url')
         .groupBy('urls.thumbnail_url')
         .groupBy('users.email')
-        .orderBy('urls.id')
+        .orderBy('urls.id', 'desc')
         .then((rows) => {
           cb(rows);
         })
