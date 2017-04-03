@@ -53,7 +53,7 @@ module.exports = (knex) => {
         .catch((err) => {
           console.log(err);
           res.redirect("/");
-
+        });
       insertURL(Number(req.session.user_id), r.description, r.title,
         genreArr, r.media_type, r.origURL,
         r.thumbnail_url, (err, userId) => {
